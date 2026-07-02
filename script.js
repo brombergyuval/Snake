@@ -110,12 +110,12 @@ function move(){
         generateApple();
     }
 }
-document.addEventListener('touchstart', a => {
+document.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
 },false);
 
-document.addEventListener('touchend', a => {
+document.addEventListener('touchend', e => {
     touchEndX = e.changedTouches[0].screenX;
     touchEndY = e.changedTouches[0].screenY;
     handleSwipe();
