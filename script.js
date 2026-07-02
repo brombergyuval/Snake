@@ -69,8 +69,8 @@ function handleSwipe(){
 
     if (Math.max(absDx,absDy)>30){
         if (absDx > absDy){
-            if (dx>0) changeDir(-1);
-            else changeDir(1);
+            if (dx>0) changeDir(1);
+            else changeDir(-1);
         } else{
             if (dy>0) changeDir(20);
             else changeDir(-20);
