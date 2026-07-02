@@ -6,7 +6,7 @@ let direction = 1;
 let appleIndex = 0;
 let score = 0;
 let timerId = 20;
-let intervalTime = 50;
+let intervalTime = 200;
 
 
 let endScreen = document.getElementById('endScreen');
@@ -48,10 +48,7 @@ function startGame(){
     clearInterval(timerId);
     clearInterval(intervalTime);
     currentSnake = [2,1,0];
-    score = 0; direction = 1; intervalTime = 1;
-    if (intervalTime<50){
-    intervalTime = 50;
-    }
+    score = 0; direction = 1; intervalTime = 200;
     scoreDisplay.textContent = score;
     currentSnake.forEach(index => squares[index].classList.add('snake'));
     generateApple()
@@ -103,25 +100,27 @@ function move(){
         squares[tail].classList.add('snake');
         currentSnake.push(tail);
         score++; scoreDisplay.textContent = score;
+        clearInterval(timerId);
+
+        intervalTime = intervalTime-5;
+        if (intervalTime<50){
+            intervalTime = 50;
+        }
+        timerId =setInterval(move,intervalTime);
         generateApple();
     }
-    document.addEventListener('touchstart', a => {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-    },false);
-
-    document.addEventListener('touchend', a => {
-        touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe()
-    },false);
-    
-    intervalTime = intervalTime-50*score;
-
-    if (intervalTime<50){
-    intervalTime = 50;
-    } 
 }
+document.addEventListener('touchstart', a => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+},false);
+
+document.addEventListener('touchend', a => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+},false);
+
 function generateApple(){
     do {
         appleIndex = Math.floor(Math.random() * squares.length);
